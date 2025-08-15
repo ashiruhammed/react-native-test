@@ -206,6 +206,7 @@ const SearchScreen: React.FC = () => {
         renderItem={renderMovieItem}
         keyExtractor={item => item.id.toString()}
         numColumns={2}
+        columnWrapperStyle={{ gap: 16, paddingHorizontal: 10 }}
         contentContainerStyle={styles.listContainer}
         ListEmptyComponent={renderEmptyState}
         showsVerticalScrollIndicator={false}
@@ -279,8 +280,9 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   listContainer: {
-    padding: 20,
+    // padding: 20,
     flexGrow: 1,
+    // gap: 12,
   },
   movieItem: {
     flex: 1,

@@ -5,6 +5,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -112,6 +113,7 @@ const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.backdropContainer}>
         <Image
           source={{
