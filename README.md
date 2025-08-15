@@ -1,97 +1,245 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🎬 Movie App
 
-# Getting Started
+A beautiful React Native movie discovery app that allows users to browse, search, and save their favorite movies using The Movie Database (TMDB) API.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 📱 Features
 
-## Step 1: Start Metro
+- **Browse Movies**: Discover popular, trending, and top-rated movies
+- **Search**: Find movies by title with real-time search
+- **Movie Details**: View comprehensive movie information including ratings, overview, cast, and more
+- **Favorites**: Save and manage your favorite movies locally
+- **Responsive Design**: Optimized for both iOS and Android devices
+- **Offline Storage**: Favorites are stored locally using AsyncStorage
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🛠 Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **React Native** (0.81.0) - Cross-platform mobile framework
+- **TypeScript** - Type-safe development
+- **Redux Toolkit** - State management
+- **React Navigation** - Navigation and routing
+- **React Native Paper** - Material Design components
+- **Axios** - HTTP client for API calls
+- **AsyncStorage** - Local data persistence
+- **Vector Icons** - Beautiful icons throughout the app
 
-```sh
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (>= 16.x)
+- **npm** or **yarn**
+- **React Native CLI**
+- **Android Studio** (for Android development)
+- **Xcode** (for iOS development - macOS only)
+- **CocoaPods** (for iOS dependencies - macOS only)
+
+> **Note**: Make sure you have completed the [React Native Environment Setup](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+
+## 🚀 Installation & Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone github.com/ashiruhammed/react-native-test
+cd react-native-test
+```
+
+### 2. Install Dependencies
+
+```bash
+# Using npm
+npm install
+
+# Using yarn
+yarn install
+```
+
+### 3. Install iOS Dependencies (macOS only)
+
+```bash
+cd ios && pod install && cd ..
+```
+
+## 🏃‍♂️ Running the App
+
+### Start Metro Bundler
+
+First, start the Metro bundler:
+
+```bash
 # Using npm
 npm start
 
-# OR using Yarn
+# Using yarn
 yarn start
 ```
 
-## Step 2: Build and run your app
+### Run on Android
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
+```bash
 # Using npm
 npm run android
 
-# OR using Yarn
+# Using yarn
 yarn android
 ```
 
-### iOS
+### Run on iOS (macOS only)
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
+```bash
 # Using npm
 npm run ios
 
-# OR using Yarn
+# Using yarn
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 📁 Project Structure
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```
+src/
+├── components/          # Reusable UI components
+│   └── MovieCard.tsx   # Movie card component
+├── config/             # App configuration
+│   └── index.ts        # API keys and app settings
+├── navigation/         # Navigation setup
+│   └── AppNavigator.tsx # Main navigation structure
+├── screens/            # App screens
+│   ├── HomeScreen.tsx      # Home/browse movies
+│   ├── SearchScreen.tsx    # Search movies
+│   ├── FavoritesScreen.tsx # Saved favorites
+│   └── MovieDetailsScreen.tsx # Movie details
+├── services/           # API services
+│   └── movieApi.ts     # TMDB API integration
+├── store/              # Redux store
+│   ├── index.ts        # Store configuration
+│   └── moviesSlice.ts  # Movies state management
+├── types/              # TypeScript type definitions
+│   └── movie.ts        # Movie-related types
+└── utils/              # Utility functions
+    └── storage.ts      # Local storage helpers
+```
 
-## Step 3: Modify your app
+## 🧪 Testing
 
-Now that you have successfully run the app, let's make changes!
+Run the test suite:
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+```bash
+# Using npm
+npm test
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+# Using yarn
+yarn test
+```
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## 🔧 Available Scripts
 
-## Congratulations! :tada:
+| Script            | Description                    |
+| ----------------- | ------------------------------ |
+| `npm start`       | Start Metro bundler            |
+| `npm run android` | Run on Android device/emulator |
+| `npm run ios`     | Run on iOS device/simulator    |
+| `npm test`        | Run test suite                 |
+| `npm run lint`    | Run ESLint for code quality    |
 
-You've successfully run and modified your React Native App. :partying_face:
+## 🎨 Key Features Explained
 
-### Now what?
+### Home Screen
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+- Browse popular and trending movies
+- Infinite scroll for seamless browsing
+- Movie cards with poster, title, and rating
 
-# Troubleshooting
+### Search Screen
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- Real-time movie search
+- Search by movie title
+- Results displayed in grid format
 
-# Learn More
+### Movie Details
 
-To learn more about React Native, take a look at the following resources:
+- Comprehensive movie information
+- High-quality poster and backdrop images
+- Movie overview, rating, release date
+- Add/remove from favorites functionality
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### Favorites Screen
+
+- View all saved favorite movies
+- Persistent local storage
+- Easy management of favorite list
+
+## 🔄 State Management
+
+The app uses Redux Toolkit for state management:
+
+- **Movies State**: Handles movie data, loading states, and favorites
+- **Async Storage**: Persists favorites locally on device
+- **Type Safety**: Full TypeScript integration for reliable state updates
+
+## 🌐 API Integration
+
+The app integrates with The Movie Database (TMDB) API:
+
+- **Popular Movies**: Fetch trending and popular movies
+- **Search**: Search movies by title
+- **Movie Details**: Get detailed movie information
+- **Images**: High-quality posters and backdrop images
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Metro bundler not starting:**
+
+```bash
+npx react-native start --reset-cache
+```
+
+**Android build issues:**
+
+```bash
+cd android && ./gradlew clean && cd ..
+npm run android
+```
+
+**iOS build issues:**
+
+```bash
+cd ios && pod install && cd ..
+npm run ios
+```
+
+**API not working:**
+
+- Check your internet connection
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [The Movie Database (TMDB)](https://www.themoviedb.org/) for providing the movie data
+- [React Native Community](https://reactnative.dev/) for the amazing framework
+- [Material Design](https://material.io/) for the design system
+
+## 📞 Support
+
+If you have any questions or run into issues, please:
+
+1. Check the [troubleshooting section](#-troubleshooting)
+2. Search existing [issues](https://github.com/your-username/MovieApp/issues)
+3. Create a new issue if needed
+
+---
+
+Made with ❤️ using React Native
