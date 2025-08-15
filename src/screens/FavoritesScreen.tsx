@@ -36,7 +36,7 @@ const FavoritesScreen: React.FC = () => {
     setLoading(true);
     try {
       const storedFavorites = await favoritesStorage.getFavorites();
-      // Sort by favorite date (most recent first)
+
       const sortedFavorites = storedFavorites.sort(
         (a, b) =>
           new Date(b.favoriteDate).getTime() -

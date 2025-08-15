@@ -42,7 +42,6 @@ const SearchScreen: React.FC = () => {
     loadFavorites();
   }, []);
 
-  // Debounced search - triggers 500ms after user stops typing
   useEffect(() => {
     const delayedSearch = setTimeout(() => {
       if (query.trim().length >= 2) {
@@ -280,9 +279,7 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   listContainer: {
-    // padding: 20,
     flexGrow: 1,
-    // gap: 12,
   },
   movieItem: {
     flex: 1,

@@ -70,7 +70,6 @@ const initialState: MoviesState = {
   },
 };
 
-// Async thunks
 export const fetchPopularMovies = createAsyncThunk(
   'movies/fetchPopularMovies',
   async (page: number = 1) => {
@@ -152,7 +151,6 @@ const moviesSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    // Popular movies
     builder
       .addCase(fetchPopularMovies.pending, state => {
         state.loading.popular = true;
@@ -174,7 +172,6 @@ const moviesSlice = createSlice({
         state.error = action.error.message || 'Failed to fetch popular movies';
       });
 
-    // Top rated movies
     builder
       .addCase(fetchTopRatedMovies.pending, state => {
         state.loading.topRated = true;
@@ -197,7 +194,6 @@ const moviesSlice = createSlice({
           action.error.message || 'Failed to fetch top rated movies';
       });
 
-    // Now playing movies
     builder
       .addCase(fetchNowPlayingMovies.pending, state => {
         state.loading.nowPlaying = true;
@@ -220,7 +216,6 @@ const moviesSlice = createSlice({
           action.error.message || 'Failed to fetch now playing movies';
       });
 
-    // Upcoming movies
     builder
       .addCase(fetchUpcomingMovies.pending, state => {
         state.loading.upcoming = true;
@@ -242,7 +237,6 @@ const moviesSlice = createSlice({
         state.error = action.error.message || 'Failed to fetch upcoming movies';
       });
 
-    // Search movies
     builder
       .addCase(searchMovies.pending, state => {
         state.loading.search = true;
@@ -265,7 +259,6 @@ const moviesSlice = createSlice({
         state.error = action.error.message || 'Failed to search movies';
       });
 
-    // Movie details
     builder
       .addCase(fetchMovieDetails.pending, state => {
         state.loading.details = true;

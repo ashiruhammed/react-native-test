@@ -61,7 +61,7 @@ const MovieSection: React.FC<MovieSectionProps> = ({
     <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>{title}</Text>
       <FlatList
-        data={movies.slice(0, 10)} // Show only first 10 movies in horizontal list
+        data={movies.slice(0, 10)}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.id.toString()}
@@ -104,7 +104,6 @@ const HomeScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Update favorite IDs when favorites change
     setFavoriteIds(new Set(favorites.map(movie => movie.id)));
   }, [favorites]);
 
