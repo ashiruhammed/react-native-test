@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MovieCard from '../components/MovieCard';
+import { RootStackParamList } from '../navigation/AppNavigator';
 import { useAppDispatch, useAppSelector } from '../store';
 import {
-  searchMovies,
-  clearSearchResults,
   addToFavorites,
+  clearSearchResults,
   removeFromFavorites,
+  searchMovies,
 } from '../store/moviesSlice';
-import MovieCard from '../components/MovieCard';
 import { Movie } from '../types/movie';
-import { RootStackParamList } from '../navigation/AppNavigator';
 import { favoritesStorage } from '../utils/storage';
 
 type SearchScreenNavigationProp = StackNavigationProp<
@@ -42,6 +42,19 @@ const SearchScreen: React.FC = () => {
     loadFavorites();
   }, []);
 
+  // Debounced search - triggers 500ms after user stops typing
+  useEffect(() => {
+    const delayedSearch = setTimeout(() => {
+      if (query.trim().length >= 2) {
+        dispatch(searchMovies({ query: query.trim() }));
+      } else if (query.trim().length === 0) {
+        dispatch(clearSearchResults());
+      }
+    }, 500);
+
+    return () => clearTimeout(delayedSearch);
+  }, [query, dispatch]);
+
   const loadFavorites = async () => {
     try {
       const storedFavorites = await favoritesStorage.getFavorites();
@@ -49,12 +62,6 @@ const SearchScreen: React.FC = () => {
       setFavoriteIds(ids);
     } catch (error) {
       console.error('Error loading favorites:', error);
-    }
-  };
-
-  const handleSearch = () => {
-    if (query.trim()) {
-      dispatch(searchMovies({ query: query.trim() }));
     }
   };
 
@@ -114,7 +121,18 @@ const SearchScreen: React.FC = () => {
       );
     }
 
-    if (searchQuery && searchResults.length === 0) {
+    if (query.trim().length > 0 && query.trim().length < 2) {
+      return (
+        <View style={styles.centerContainer}>
+          <Icon name="edit" size={64} color="#ccc" />
+          <Text style={styles.emptyText}>
+            Type at least 2 characters to search
+          </Text>
+        </View>
+      );
+    }
+
+    if (searchQuery && searchResults.length === 0 && query.trim().length >= 2) {
       return (
         <View style={styles.centerContainer}>
           <Icon name="search-off" size={64} color="#ccc" />
@@ -129,6 +147,9 @@ const SearchScreen: React.FC = () => {
       <View style={styles.centerContainer}>
         <Icon name="search" size={64} color="#ccc" />
         <Text style={styles.emptyText}>Search for movies</Text>
+        <Text style={styles.subText}>
+          Start typing to find your favorite movies
+        </Text>
       </View>
     );
   };
@@ -152,8 +173,9 @@ const SearchScreen: React.FC = () => {
             placeholder="Search for movies..."
             value={query}
             onChangeText={setQuery}
-            onSubmitEditing={handleSearch}
             returnKeyType="search"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           {query.length > 0 && (
             <TouchableOpacity onPress={clearSearch} style={styles.clearButton}>
@@ -161,9 +183,22 @@ const SearchScreen: React.FC = () => {
             </TouchableOpacity>
           )}
         </View>
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-          <Text style={styles.searchButtonText}>Search</Text>
-        </TouchableOpacity>
+        {/* Search status indicator */}
+        {query.trim().length >= 2 && (
+          <View style={styles.searchStatus}>
+            {loading.search ? (
+              <View style={styles.searchingIndicator}>
+                <ActivityIndicator size="small" color="#e91e63" />
+                <Text style={styles.searchingText}>Searching...</Text>
+              </View>
+            ) : (
+              <Text style={styles.resultsCount}>
+                {searchResults.length} result
+                {searchResults.length !== 1 ? 's' : ''} found
+              </Text>
+            )}
+          </View>
+        )}
       </View>
 
       <FlatList
@@ -212,7 +247,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
     borderRadius: 25,
-    marginBottom: 15,
     paddingHorizontal: 15,
   },
   searchIcon: {
@@ -227,16 +261,22 @@ const styles = StyleSheet.create({
   clearButton: {
     padding: 5,
   },
-  searchButton: {
-    backgroundColor: '#e91e63',
-    borderRadius: 25,
-    paddingVertical: 12,
+  searchStatus: {
+    marginTop: 10,
     alignItems: 'center',
   },
-  searchButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+  searchingIndicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  searchingText: {
+    marginLeft: 8,
+    fontSize: 14,
+    color: '#e91e63',
+  },
+  resultsCount: {
+    fontSize: 14,
+    color: '#666',
   },
   listContainer: {
     padding: 20,
@@ -256,6 +296,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#666',
     marginTop: 16,
+    textAlign: 'center',
+  },
+  subText: {
+    fontSize: 14,
+    color: '#999',
+    marginTop: 8,
     textAlign: 'center',
   },
   loadingText: {

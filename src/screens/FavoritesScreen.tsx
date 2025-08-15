@@ -160,6 +160,7 @@ const FavoritesScreen: React.FC = () => {
         data={favorites}
         renderItem={renderMovieItem}
         keyExtractor={item => item.id.toString()}
+        columnWrapperStyle={{ gap: 16 }}
         numColumns={2}
         contentContainerStyle={styles.listContainer}
         ListEmptyComponent={renderEmptyState}

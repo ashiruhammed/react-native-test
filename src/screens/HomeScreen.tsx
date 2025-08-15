@@ -58,7 +58,7 @@ const MovieSection: React.FC<MovieSectionProps> = ({
   }
 
   return (
-    <SafeAreaView style={styles.sectionContainer}>
+    <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>{title}</Text>
       <FlatList
         data={movies.slice(0, 10)} // Show only first 10 movies in horizontal list
@@ -78,7 +78,7 @@ const MovieSection: React.FC<MovieSectionProps> = ({
           </View>
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

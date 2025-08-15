@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   poster: {
     width: '100%',
-    height: cardWidth * 1.5,
+    height: cardWidth * 1.2,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
   },
