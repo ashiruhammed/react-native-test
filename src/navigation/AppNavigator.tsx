@@ -1,14 +1,15 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // Import screens (we'll create these next)
-import HomeScreen from '../screens/HomeScreen';
-import SearchScreen from '../screens/SearchScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import HomeScreen from '../screens/HomeScreen';
 import MovieDetailsScreen from '../screens/MovieDetailsScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 export type RootStackParamList = {
   Main: undefined;
@@ -57,29 +58,31 @@ const TabNavigator = () => {
 
 const AppNavigator = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Main"
-          component={TabNavigator}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="MovieDetails"
-          component={MovieDetailsScreen}
-          options={({ route }) => ({
-            title: route.params.movieTitle,
-            headerStyle: {
-              backgroundColor: '#1a1a1a',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          })}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Main"
+            component={TabNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MovieDetails"
+            component={MovieDetailsScreen}
+            options={({ route }) => ({
+              title: route.params.movieTitle,
+              headerStyle: {
+                backgroundColor: '#1a1a1a',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            })}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 

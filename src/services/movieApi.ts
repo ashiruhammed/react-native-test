@@ -19,7 +19,6 @@ const api = axios.create({
 });
 
 export const movieApi = {
-  // Get popular movies
   getPopularMovies: async (page: number = 1): Promise<MovieResponse> => {
     const response = await api.get('/movie/popular', {
       params: { page },
@@ -27,7 +26,6 @@ export const movieApi = {
     return response.data;
   },
 
-  // Get top rated movies
   getTopRatedMovies: async (page: number = 1): Promise<MovieResponse> => {
     const response = await api.get('/movie/top_rated', {
       params: { page },
@@ -35,7 +33,6 @@ export const movieApi = {
     return response.data;
   },
 
-  // Get now playing movies
   getNowPlayingMovies: async (page: number = 1): Promise<MovieResponse> => {
     const response = await api.get('/movie/now_playing', {
       params: { page },
@@ -43,7 +40,6 @@ export const movieApi = {
     return response.data;
   },
 
-  // Get upcoming movies
   getUpcomingMovies: async (page: number = 1): Promise<MovieResponse> => {
     const response = await api.get('/movie/upcoming', {
       params: { page },
@@ -51,7 +47,6 @@ export const movieApi = {
     return response.data;
   },
 
-  // Search movies
   searchMovies: async (
     query: string,
     page: number = 1,
@@ -62,19 +57,16 @@ export const movieApi = {
     return response.data;
   },
 
-  // Get movie details
   getMovieDetails: async (movieId: number): Promise<MovieDetails> => {
     const response = await api.get(`/movie/${movieId}`);
     return response.data;
   },
 
-  // Get movie images
   getMovieImages: async (movieId: number) => {
     const response = await api.get(`/movie/${movieId}/images`);
     return response.data;
   },
 
-  // Get movie videos (trailers)
   getMovieVideos: async (movieId: number) => {
     const response = await api.get(`/movie/${movieId}/videos`);
     return response.data;

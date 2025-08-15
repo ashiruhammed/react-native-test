@@ -8,6 +8,7 @@ import {
   RefreshControl,
   ActivityIndicator,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -24,6 +25,7 @@ import MovieCard from '../components/MovieCard';
 import { Movie } from '../types/movie';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { favoritesStorage } from '../utils/storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
@@ -56,7 +58,7 @@ const MovieSection: React.FC<MovieSectionProps> = ({
   }
 
   return (
-    <View style={styles.sectionContainer}>
+    <SafeAreaView style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>{title}</Text>
       <FlatList
         data={movies.slice(0, 10)} // Show only first 10 movies in horizontal list
@@ -76,7 +78,7 @@ const MovieSection: React.FC<MovieSectionProps> = ({
           </View>
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -171,50 +173,53 @@ const HomeScreen: React.FC = () => {
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <Text style={styles.headerTitle}>Movie App</Text>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#f5f5f5" />
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <Text style={styles.headerTitle}>Movie App</Text>
 
-      <MovieSection
-        title="Now Playing"
-        movies={nowPlayingMovies}
-        loading={loading.nowPlaying}
-        onMoviePress={handleMoviePress}
-        onFavoritePress={handleFavoritePress}
-        favoriteIds={favoriteIds}
-      />
+        <MovieSection
+          title="Now Playing"
+          movies={nowPlayingMovies}
+          loading={loading.nowPlaying}
+          onMoviePress={handleMoviePress}
+          onFavoritePress={handleFavoritePress}
+          favoriteIds={favoriteIds}
+        />
 
-      <MovieSection
-        title="Popular Movies"
-        movies={popularMovies}
-        loading={loading.popular}
-        onMoviePress={handleMoviePress}
-        onFavoritePress={handleFavoritePress}
-        favoriteIds={favoriteIds}
-      />
+        <MovieSection
+          title="Popular Movies"
+          movies={popularMovies}
+          loading={loading.popular}
+          onMoviePress={handleMoviePress}
+          onFavoritePress={handleFavoritePress}
+          favoriteIds={favoriteIds}
+        />
 
-      <MovieSection
-        title="Top Rated"
-        movies={topRatedMovies}
-        loading={loading.topRated}
-        onMoviePress={handleMoviePress}
-        onFavoritePress={handleFavoritePress}
-        favoriteIds={favoriteIds}
-      />
+        <MovieSection
+          title="Top Rated"
+          movies={topRatedMovies}
+          loading={loading.topRated}
+          onMoviePress={handleMoviePress}
+          onFavoritePress={handleFavoritePress}
+          favoriteIds={favoriteIds}
+        />
 
-      <MovieSection
-        title="Upcoming"
-        movies={upcomingMovies}
-        loading={loading.upcoming}
-        onMoviePress={handleMoviePress}
-        onFavoritePress={handleFavoritePress}
-        favoriteIds={favoriteIds}
-      />
-    </ScrollView>
+        <MovieSection
+          title="Upcoming"
+          movies={upcomingMovies}
+          loading={loading.upcoming}
+          onMoviePress={handleMoviePress}
+          onFavoritePress={handleFavoritePress}
+          favoriteIds={favoriteIds}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
