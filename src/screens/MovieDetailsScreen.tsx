@@ -1,24 +1,24 @@
+import { RouteProp } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  StyleSheet,
   ActivityIndicator,
-  TouchableOpacity,
   Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { RootStackParamList } from '../navigation/AppNavigator';
+import { getFullImageUrl, getImageUrl } from '../services/movieApi';
 import { useAppDispatch, useAppSelector } from '../store';
 import {
-  fetchMovieDetails,
   addToFavorites,
+  fetchMovieDetails,
   removeFromFavorites,
 } from '../store/moviesSlice';
-import { RootStackParamList } from '../navigation/AppNavigator';
-import { getImageUrl, getFullImageUrl } from '../services/movieApi';
 import { favoritesStorage } from '../utils/storage';
 
 type MovieDetailsScreenRouteProp = RouteProp<
@@ -30,7 +30,7 @@ interface Props {
   route: MovieDetailsScreenRouteProp;
 }
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
   const { movieId } = route.params;
@@ -112,7 +112,6 @@ const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Backdrop Image */}
       <View style={styles.backdropContainer}>
         <Image
           source={{
@@ -126,7 +125,6 @@ const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
         />
         <View style={styles.backdropOverlay} />
 
-        {/* Favorite Button */}
         <TouchableOpacity
           style={styles.favoriteButton}
           onPress={handleFavoritePress}
@@ -139,7 +137,6 @@ const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Movie Info */}
       <View style={styles.contentContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{movie.title}</Text>
@@ -148,7 +145,6 @@ const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
           )}
         </View>
 
-        {/* Rating and Release Info */}
         <View style={styles.metaContainer}>
           <View style={styles.ratingContainer}>
             <Icon name="star" size={20} color="#ffd700" />
@@ -163,7 +159,6 @@ const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
           </View>
         </View>
 
-        {/* Genres */}
         {movie.genres && movie.genres.length > 0 && (
           <View style={styles.genresContainer}>
             {movie.genres.map(genre => (
@@ -174,13 +169,11 @@ const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
           </View>
         )}
 
-        {/* Overview */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Overview</Text>
           <Text style={styles.overview}>{movie.overview}</Text>
         </View>
 
-        {/* Additional Info */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Details</Text>
 
@@ -215,7 +208,6 @@ const MovieDetailsScreen: React.FC<Props> = ({ route }) => {
           )}
         </View>
 
-        {/* Production Companies */}
         {movie.production_companies &&
           movie.production_companies.length > 0 && (
             <View style={styles.section}>
